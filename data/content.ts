@@ -14,7 +14,7 @@ export const mediaItems: MediaItem[] = [
     title: "Portfolio Clip — 01",
     description: "User-submitted YouTube video.",
     platform: "youtube",
-    idOrUrl: "https://youtu.be/b9iLfVFklO0",
+    idOrUrl: "b9iLfVFklO0",
     tags: ["video"],
   },
   {

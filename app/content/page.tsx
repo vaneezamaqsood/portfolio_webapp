@@ -39,7 +39,7 @@ export default function ContentPage() {
                 className="min-w-[88%] sm:min-w-[560px] snap-start"
                 style={{ scrollSnapAlign: "start" }}
               >
-                <VideoEmbed platform={m.platform} idOrUrl={m.idOrUrl} title={m.title} />
+                <VideoEmbed platform={m.platform} idOrUrl={m.idOrUrl} title={m.title} autoPlay={idx === 0} muted />
                 <div className="mt-2">
                   <div className="text-sm font-medium">{m.title}</div>
                   {m.description ? (
