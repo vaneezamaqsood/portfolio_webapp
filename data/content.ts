@@ -18,6 +18,20 @@ export const mediaItems: MediaItem[] = [
     tags: ["video"],
   },
   {
+    title: "Portfolio Clip — 02",
+    description: "User-submitted YouTube video.",
+    platform: "youtube",
+    idOrUrl: "Y5CxOmSbuTw",
+    tags: ["video"],
+  },
+  {
+    title: "Portfolio Clip — 03",
+    description: "User-submitted YouTube video.",
+    platform: "youtube",
+    idOrUrl: "DkeEuAPBmMI",
+    tags: ["video"],
+  },
+  {
     title: "Prototype Walkthrough",
     description: "Interaction and micro-animations demo.",
     platform: "vimeo",
