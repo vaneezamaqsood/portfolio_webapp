@@ -24,19 +24,46 @@ export default function VideoEmbed({
     style: { border: 0 },
   };
 
-  const params = new URLSearchParams();
-  if (autoPlay) params.set("autoplay", "1");
-  if (muted) params.set("muted", "1");
-  params.set("rel", "0");
-  params.set("modestbranding", "1");
-
   let src = "";
   if (platform === "youtube") {
-    const id = idOrUrl.includes("http") ? new URL(idOrUrl).searchParams.get("v") || idOrUrl : idOrUrl;
-    src = `https://www.youtube.com/embed/${id}?${params.toString()}`;
+    const extractYouTubeId = (input: string): string => {
+      try {
+        if (input.startsWith("http")) {
+          const url = new URL(input);
+          const host = url.hostname.replace(/^www\./, "").toLowerCase();
+          if (host === "youtu.be") {
+            return url.pathname.replace(/^\//, "");
+          }
+          if (host.endsWith("youtube.com") || host.endsWith("youtube-nocookie.com")) {
+            if (url.pathname.startsWith("/embed/")) return url.pathname.split("/")[2] || "";
+            if (url.pathname.startsWith("/shorts/")) return url.pathname.split("/")[2] || "";
+            const v = url.searchParams.get("v");
+            if (v) return v;
+          }
+        }
+      } catch {}
+      // Fallback: if it looks like an ID, use it
+      const maybeId = input.trim();
+      return maybeId;
+    };
+    const id = extractYouTubeId(idOrUrl);
+    const yt = new URLSearchParams();
+    if (autoPlay) yt.set("autoplay", "1");
+    if (muted) yt.set("mute", "1");
+    yt.set("rel", "0");
+    yt.set("modestbranding", "1");
+    yt.set("playsinline", "1");
+    src = `https://www.youtube-nocookie.com/embed/${id}?${yt.toString()}`;
   } else if (platform === "vimeo") {
     const id = idOrUrl.replace(/[^0-9]/g, "");
-    src = `https://player.vimeo.com/video/${id}?${params.toString()}`;
+    const vm = new URLSearchParams();
+    if (autoPlay) vm.set("autoplay", "1");
+    if (muted) vm.set("muted", "1");
+    vm.set("title", "0");
+    vm.set("byline", "0");
+    vm.set("portrait", "0");
+    vm.set("transparent", "0");
+    src = `https://player.vimeo.com/video/${id}?${vm.toString()}`;
   }
 
   return (
