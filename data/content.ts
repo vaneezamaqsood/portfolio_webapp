@@ -9,13 +9,13 @@ export type MediaItem = {
 };
 
 export const mediaItems: MediaItem[] = [
-  // Example entries — replace with your content
+  // User-provided link
   {
-    title: "Portfolio Reel",
-    description: "A quick cut of recent design/dev work.",
+    title: "Portfolio Clip — 01",
+    description: "User-submitted YouTube video.",
     platform: "youtube",
-    idOrUrl: "dQw4w9WgXcQ",
-    tags: ["reel", "portfolio"],
+    idOrUrl: "https://youtu.be/b9iLfVFklO0",
+    tags: ["video"],
   },
   {
     title: "Prototype Walkthrough",
