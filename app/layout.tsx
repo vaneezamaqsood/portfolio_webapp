@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import Providers from "./providers";
 import ScrollProgress from "@/components/ScrollProgress";
 import { ThemeProvider } from "@/components/theme-provider"
-import NeonBackground from "@/components/NeonBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -111,7 +110,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
         <Providers>
-          <NeonBackground />
+          {/* Background removed per request */}
           {/* ensure overlay UI can receive pointer events above other content */}
           <Navbar />
           <ScrollProgress />
