@@ -76,6 +76,12 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+
+  /* Soft background tokens (light) */
+  --soft-1: color(display-p3 0.72 0.8 1 / 0.48);
+  --soft-2: color(display-p3 0.72 1 0.92 / 0.38);
+  --soft-3: color(display-p3 1 0.95 0.8 / 0.30);
+  --soft-grid: rgba(0,0,0,0.5);
 }
 
 .dark {
@@ -110,6 +116,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+
+  /* Soft background tokens (dark) */
+  --soft-1: color(display-p3 0.2 0.45 1 / 0.26);
+  --soft-2: color(display-p3 0 0.7 0.7 / 0.20);
+  --soft-3: color(display-p3 0.8 0.55 0.15 / 0.14);
+  --soft-grid: rgba(255,255,255,0.5);
 }
 
 @layer base {
@@ -118,6 +130,37 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Subtle theme-aware background: soft radial glows + faint grid */
+    background-image:
+      radial-gradient(600px 600px at 0% 0%, var(--soft-1), transparent 60%),
+      radial-gradient(600px 600px at 100% 0%, var(--soft-2), transparent 60%),
+      radial-gradient(800px 800px at 100% 100%, var(--soft-3), transparent 70%),
+      linear-gradient(var(--soft-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--soft-grid) 1px, transparent 1px);
+    background-size:
+      auto,
+      auto,
+      auto,
+      48px 48px,
+      48px 48px;
+    background-position:
+      0 0,
+      100% 0,
+      100% 100%,
+      0 0,
+      0 0;
+    background-repeat:
+      no-repeat,
+      no-repeat,
+      no-repeat,
+      repeat,
+      repeat;
+    background-attachment:
+      fixed,
+      fixed,
+      fixed,
+      fixed,
+      fixed;
   }
 }
 
