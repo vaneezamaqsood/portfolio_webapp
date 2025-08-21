@@ -141,3 +141,17 @@ Basic Vercel flow:
 
 Repository: https://github.com/vaneezamaqsood/portfolio_webapp
 
+## Contact form email setup
+Create a `.env.local` file with your SMTP credentials:
+
+```
+SMTP_HOST=smtp.yourprovider.com
+SMTP_PORT=587
+SMTP_USER=your_smtp_username
+SMTP_PASS=your_smtp_password
+CONTACT_FROM_EMAIL="Portfolio <no-reply@your-domain.com>"
+CONTACT_TO_EMAIL=you@example.com
+```
+
+Then restart the dev server. The contact form posts to `/api/contact` and will email messages to `CONTACT_TO_EMAIL`.
+
