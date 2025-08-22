@@ -134,30 +134,20 @@
     background-image:
       radial-gradient(600px 600px at 0% 0%, var(--soft-1), transparent 60%),
       radial-gradient(600px 600px at 100% 0%, var(--soft-2), transparent 60%),
-      radial-gradient(800px 800px at 100% 100%, var(--soft-3), transparent 70%),
-      linear-gradient(var(--soft-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--soft-grid) 1px, transparent 1px);
+      radial-gradient(800px 800px at 100% 100%, var(--soft-3), transparent 70%);
     background-size:
       auto,
       auto,
-      auto,
-      48px 48px,
-      48px 48px;
+      auto;
     background-position:
       0 0,
       100% 0,
-      100% 100%,
-      0 0,
-      0 0;
+      100% 100%;
     background-repeat:
       no-repeat,
       no-repeat,
-      no-repeat,
-      repeat,
-      repeat;
+      no-repeat;
     background-attachment:
-      fixed,
-      fixed,
       fixed,
       fixed,
       fixed;
