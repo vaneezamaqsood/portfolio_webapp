@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+
+// Ensure Node.js runtime on Vercel (required for nodemailer)
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 import nodemailer from "nodemailer";
 
 function missingEnv(keys: string[]): string[] {
