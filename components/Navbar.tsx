@@ -13,7 +13,6 @@ const navItems = [
   { href: "/work", label: "Work" },
   { href: "/content", label: "Content" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
