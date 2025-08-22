@@ -42,6 +42,16 @@ export async function POST(req: Request) {
       auth: { user, pass },
     });
 
+    // Verify SMTP connectivity and credentials to surface clearer errors
+    try {
+      await transporter.verify();
+    } catch (verifyErr: any) {
+      return NextResponse.json(
+        { ok: false, error: `SMTP verify failed: ${verifyErr?.message || String(verifyErr)}` },
+        { status: 500 }
+      );
+    }
+
     const subject = `Portfolio contact: ${name}`;
     const text = `From: ${name} <${email}>
 \nMessage:\n${message}`;
