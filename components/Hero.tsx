@@ -7,6 +7,9 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
 import Image from "next/image";
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import { Card } from "@/components/ui/card";
+import { Spotlight } from "@/components/ui/spotlight";
+import { SplineScene } from "@/components/ui/splite";
 
 export default function Hero() {
   const headlineRef = useRef<HTMLSpanElement | null>(null);
@@ -104,31 +107,15 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* Profile portrait with circular glass background */}
-        <div className="relative h-56 w-56 sm:h-72 sm:w-72 mx-auto">
-          {/* soft glow background */}
-          <motion.div
-            className="absolute -inset-2 -z-10 blur-3xl bg-gradient-to-br from-primary/30 via-accent/20 to-transparent opacity-60"
-            animate={{ opacity: [0.4, 0.75, 0.4] }}
-            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-          />
-
-          {/* circular glass container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-            className="absolute inset-0 rounded-full glass neon-ring overflow-hidden"
-          >
-            <Image
-              src="/Vaneeza-Profile%20Picture.png"
-              alt="Vaneeza profile portrait"
-              fill
-              priority
-              sizes="(min-width: 640px) 18rem, 14rem"
-              className="object-cover"
+        {/* Interactive 3D block */}
+        <div className="relative h-56 sm:h-72 mx-auto w-full">
+          <Card className="w-full h-full bg-black/[0.96] relative overflow-hidden">
+            <Spotlight className="-top-40 left-0 md:left-20 md:-top-10" fill="white" />
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full"
             />
-          </motion.div>
+          </Card>
 
           <motion.div
             className="absolute -bottom-7 right-0 left-0 text-center text-xs text-muted-foreground"
