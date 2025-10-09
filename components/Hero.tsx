@@ -75,7 +75,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-24">
-      <AuroraBackground className="absolute inset-0 -z-10 opacity-70" />
+      <AuroraBackground className="absolute inset-0 -z-10 opacity-90"></AuroraBackground>
 
       <div className="grid gap-10 sm:gap-6 sm:grid-cols-[1.2fr_0.8fr] items-center">
         <div>
