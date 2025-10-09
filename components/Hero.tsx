@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
 import Image from "next/image";
+import { AuroraBackground } from "@/components/ui/aurora-background";
 
 export default function Hero() {
   const headlineRef = useRef<HTMLSpanElement | null>(null);
@@ -74,6 +75,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-24">
+      <AuroraBackground className="absolute inset-0 -z-10 opacity-70" />
 
       <div className="grid gap-10 sm:gap-6 sm:grid-cols-[1.2fr_0.8fr] items-center">
         <div>
