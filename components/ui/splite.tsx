@@ -1,15 +1,17 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import React from "react";
-
-// Dynamically import @splinetool/react-spline without SSR
-const Spline = dynamic(() => import("@splinetool/react-spline").then(m => m.default), {
-  ssr: false,
-}) as any;
+import React, { useEffect } from "react";
 
 export function SplineScene({ scene, className }: { scene: string; className?: string }) {
-  return <Spline scene={scene} className={className} />;
+  useEffect(() => {
+    // Import the web component on client only
+    import("@splinetool/viewer");
+  }, []);
+
+  return (
+    // @ts-expect-error: custom element provided by @splinetool/viewer
+    <spline-viewer url={scene} class={className}></spline-viewer>
+  );
 }
 
 
