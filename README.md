@@ -2,7 +2,7 @@
 
 # Portfolio Web App
 
-Beautiful, fast, and responsive personal portfolio built with Next.js (App Router), TypeScript, and Tailwind CSS. It showcases projects, an about page, and a contact page with smooth animations and a dark/light theme.
+Beautiful, fast, and responsive personal portfolio built with Next.js (App Router), TypeScript, and Tailwind CSS. It showcases projects and an about page with smooth animations and a dark/light theme.
 
 </div>
 
@@ -21,7 +21,7 @@ Beautiful, fast, and responsive personal portfolio built with Next.js (App Route
 - [Acknowledgements](#acknowledgements)
 
 ## Features
-- **App Router**: Organized routes for `home`, `about`, `contact`, and dynamic `work/[slug]` pages
+- **App Router**: Organized routes for `home`, `about`, and dynamic `work/[slug]` pages
 - **Theme Toggle**: Persisted dark/light theme via `next-themes`
 - **Animations**: Smooth page and element transitions using `framer-motion` and `gsap`
 - **Smooth Scrolling**: Powered by `lenis`
@@ -44,7 +44,6 @@ portfolio_webapp/
 ├─ app/
 │  ├─ page.tsx                # Home (hero, featured work)
 │  ├─ about/page.tsx          # About me
-│  ├─ contact/page.tsx        # Contact info / form
 │  ├─ work/page.tsx           # All projects listing
 │  └─ work/[slug]/page.tsx    # Project detail page (dynamic)
 ├─ components/
@@ -129,7 +128,6 @@ Basic Vercel flow:
 ## Roadmap
 - Project filtering and search
 - Light CMS hooks for `work` content
-- Contact form with email provider integration
 
 ## Acknowledgements
 - Next.js: https://nextjs.org/docs
@@ -141,17 +139,5 @@ Basic Vercel flow:
 
 Repository: https://github.com/vaneezamaqsood/portfolio_webapp
 
-## Contact form email setup
-Create a `.env.local` file with your SMTP credentials:
 
-```
-SMTP_HOST=smtp.yourprovider.com
-SMTP_PORT=587
-SMTP_USER=your_smtp_username
-SMTP_PASS=your_smtp_password
-CONTACT_FROM_EMAIL="Portfolio <no-reply@your-domain.com>"
-CONTACT_TO_EMAIL=you@example.com
-```
-
-Then restart the dev server. The contact form posts to `/api/contact` and will email messages to `CONTACT_TO_EMAIL`.
 

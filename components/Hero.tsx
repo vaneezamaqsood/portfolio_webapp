@@ -8,8 +8,6 @@ gsap.registerPlugin(ScrollToPlugin);
 import Image from "next/image";
 
 export default function Hero() {
-  const heroRef = useRef<HTMLDivElement | null>(null);
-  const cursorRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLSpanElement | null>(null);
   const rolesRef = useRef<HTMLSpanElement | null>(null);
   const rolesCaretRef = useRef<HTMLSpanElement | null>(null);
@@ -72,79 +70,10 @@ export default function Hero() {
     };
   }, []);
 
-  useEffect(() => {
-    // GSAP cursor that inverts colors and morphs with velocity
-    const hero = heroRef.current;
-    const cursor = cursorRef.current;
-    if (!hero || !cursor) return;
-
-    let lastX = 0;
-    let lastY = 0;
-    let initialized = false;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = hero.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      // velocity
-      const vx = x - lastX;
-      const vy = y - lastY;
-      lastX = x;
-      lastY = y;
-
-      // position (centered via CSS translate(-50%, -50%))
-      gsap.to(cursor, {
-        x,
-        y,
-        duration: initialized ? 0.18 : 0,
-        ease: "power3.out",
-      });
-      initialized = true;
-
-      // morph based on velocity
-      const speed = Math.min(Math.hypot(vx, vy), 40);
-      const stretch = 1 + speed / 80; // up to ~1.5
-      const angle = (Math.atan2(vy, vx) * 180) / Math.PI;
-
-      // Expand when hovering text-like elements
-      const target = e.target as Element | null;
-      const isOverText = !!target?.closest(
-        "h1, h2, h3, h4, h5, h6, p, a, span, strong, em, small, li"
-      );
-      const baseScale = isOverText ? 4 : 1; // 24px * 4 = ~96px
-
-      gsap.to(cursor, {
-        scaleX: stretch * baseScale,
-        scaleY: (1 / stretch) * baseScale,
-        rotate: angle,
-        duration: 0.25,
-        ease: "power3.out",
-      });
-    };
-
-    const onEnter = () => {
-      gsap.to(cursor, { opacity: 1, scale: 1, duration: 0.25, ease: "power3.out" });
-    };
-    const onLeave = () => {
-      gsap.to(cursor, { opacity: 0, scale: 0.6, duration: 0.25, ease: "power3.in" });
-    };
-
-    hero.addEventListener("pointermove", onMove);
-    hero.addEventListener("pointerenter", onEnter);
-    hero.addEventListener("pointerleave", onLeave);
-
-    return () => {
-      hero.removeEventListener("pointermove", onMove);
-      hero.removeEventListener("pointerenter", onEnter);
-      hero.removeEventListener("pointerleave", onLeave);
-    };
-  }, []);
+  // Removed morphing cursor effect per request
 
   return (
-    <section ref={heroRef} className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-24 blend-root">
-      {/* morphing invert cursor */}
-      <div ref={cursorRef} className="cursor-invert" aria-hidden />
+    <section id="hero" className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-24">
 
       <div className="grid gap-10 sm:gap-6 sm:grid-cols-[1.2fr_0.8fr] items-center">
         <div>

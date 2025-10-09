@@ -222,7 +222,38 @@ export default function NeonBackground(): ReactElement {
       ctx.fillStyle = vignette;
       ctx.fillRect(0, 0, width, height);
 
-      // Additive neon blend
+      // Compute hero exclusion area and mask it out
+      const heroEl = document.getElementById("hero");
+      let heroMask: { x: number; y: number; w: number; h: number; r: number } | null = null;
+      if (heroEl) {
+        const rect = heroEl.getBoundingClientRect();
+        heroMask = {
+          x: rect.left,
+          y: rect.top,
+          w: rect.width,
+          h: rect.height,
+          r: 16,
+        };
+      }
+
+      // Create a clipping region that excludes the hero area
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, width, height);
+      if (heroMask) {
+        const { x, y, w, h, r } = heroMask;
+        const rr = Math.min(r, w / 2, h / 2);
+        // Path for rounded rect
+        ctx.moveTo(x + rr, y);
+        ctx.arcTo(x + w, y, x + w, y + h, rr);
+        ctx.arcTo(x + w, y + h, x, y + h, rr);
+        ctx.arcTo(x, y + h, x, y, rr);
+        ctx.arcTo(x, y, x + w, y, rr);
+        // Use even-odd rule to subtract hero rect from full canvas
+        ctx.clip("evenodd");
+      }
+
+      // Additive neon blend inside clipped area
       ctx.globalCompositeOperation = "lighter";
 
       const speed1 = 0.7; // wave evolution
@@ -322,6 +353,7 @@ export default function NeonBackground(): ReactElement {
         ctx.globalCompositeOperation = prevComp;
       }
 
+      ctx.restore();
       ctx.globalCompositeOperation = "source-over";
       t += 0.016 * 1.25; // slightly calmer evolution speed
     }
