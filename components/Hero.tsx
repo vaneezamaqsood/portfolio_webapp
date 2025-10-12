@@ -5,11 +5,8 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
-import Image from "next/image";
 import { AuroraBackground } from "@/components/ui/aurora-background";
-import { Card } from "@/components/ui/card";
-import { Spotlight } from "@/components/ui/spotlight";
-import { SplineScene } from "@/components/ui/splite";
+import SkillsOrbit from "@/components/SkillsOrbit";
 
 export default function Hero() {
   const headlineRef = useRef<HTMLSpanElement | null>(null);
@@ -107,16 +104,9 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        {/* Interactive 3D block */}
-        <div className="relative h-56 sm:h-72 mx-auto w-full">
-          <Card className="w-full h-full bg-black/[0.96] relative overflow-hidden">
-            <Spotlight className="-top-40 left-0 md:left-20 md:-top-10" fill="white" />
-            <SplineScene
-              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              className="w-full h-full"
-            />
-          </Card>
-
+        {/* Interactive Skills Orbit */}
+        <div className="relative mx-auto w-full">
+          <SkillsOrbit />
           <motion.div
             className="absolute -bottom-7 right-0 left-0 text-center text-xs text-muted-foreground"
             initial={{ opacity: 0, y: 6 }}
