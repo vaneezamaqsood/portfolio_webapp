@@ -124,53 +124,7 @@ export default function SkillsOrbit() {
         ))}
       </div>
 
-      {/* Project panel */}
-      <AnimatePresence>
-        {activeSkill && (
-          <motion.div
-            key={activeSkill.key}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 24 }}
-            className="absolute bottom-6 left-1/2 z-30 w-[92%] max-w-2xl -translate-x-1/2 rounded-xl border border-white/15 bg-neutral-900/90 p-4 shadow-2xl backdrop-blur-xl"
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="mb-2 flex items-center justify-between">
-              <h3 className="text-base font-semibold">
-                {activeSkill.label} · Projects
-              </h3>
-              <button
-                onClick={() => setActive(null)}
-                className="rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs hover:bg-white/10"
-                aria-label="Close projects"
-              >
-                Close
-              </button>
-            </div>
-
-            <ul className="grid gap-2 sm:grid-cols-2">
-              {activeSkill.projects.map((p, idx) => (
-                <li key={idx} className="rounded-lg border border-white/10 bg-white/5 p-3">
-                  <div className="text-sm font-medium">{p.title}</div>
-                  {p.year && (
-                    <div className="text-xs text-white/60">{p.year}</div>
-                  )}
-                  {p.link && (
-                    <a
-                      href={p.link}
-                      className="mt-1 inline-block text-xs underline opacity-80 hover:opacity-100"
-                    >
-                      View
-                    </a>
-                  )}
-                </li>)
-              )}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Project panel removed per request to keep orbit fully visible */}
 
       {/* subtle gradient glow */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_40%,rgba(80,80,255,0.12),rgba(0,0,0,0))]" />
