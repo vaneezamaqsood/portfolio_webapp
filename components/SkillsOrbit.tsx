@@ -1,0 +1,188 @@
+// app/components/SkillsOrbit.tsx
+"use client";
+
+import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// --- Types ---
+type Project = { title: string; link?: string; year?: string };
+type Skill = { key: string; label: string; color?: string; projects: Project[] };
+
+// --- Demo data: replace with yours ---
+const SKILLS: Skill[] = [
+  {
+    key: "react",
+    label: "React",
+    color: "#61dafb",
+    projects: [
+      { title: "Portfolio WebApp (Next.js)", year: "2025", link: "/work/portfolio" },
+      { title: "Dashboard UI Widgets", year: "2025" },
+    ],
+  },
+  {
+    key: "tailwind",
+    label: "TailwindCSS",
+    color: "#38bdf8",
+    projects: [
+      { title: "Design System Tokens", year: "2025" },
+      { title: "Marketing Landing Page", year: "2024" },
+    ],
+  },
+  {
+    key: "nextjs",
+    label: "Next.js",
+    color: "#000000",
+    projects: [
+      { title: "Contact Form (SMTP)", year: "2025", link: "/contact" },
+      { title: "Image Optimized Blog", year: "2024" },
+    ],
+  },
+  {
+    key: "figma",
+    label: "Figma",
+    color: "#a259ff",
+    projects: [
+      { title: "Component Library", year: "2025" },
+      { title: "Mobile Wireframes", year: "2024" },
+    ],
+  },
+  {
+    key: "vercel",
+    label: "Vercel",
+    color: "#111827",
+    projects: [
+      { title: "CI/CD Pipeline", year: "2025" },
+    ],
+  },
+];
+
+// Utility to compute positions around a circle
+function useOrbitPositions(count: number, radius = 180) {
+  return useMemo(() => {
+    const step = (2 * Math.PI) / count;
+    return new Array(count).fill(0).map((_, i) => {
+      const angle = i * step - Math.PI / 2; // start at top
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      return { x, y };
+    });
+  }, [count]);
+}
+
+export default function SkillsOrbit() {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const positions = useOrbitPositions(SKILLS.length, 180);
+
+  const activeSkill = SKILLS.find((s) => s.key === active) || null;
+
+  return (
+    <div className="relative mx-auto grid place-items-center min-h-[600px] w-full overflow-hidden rounded-2xl bg-neutral-950 text-neutral-100">
+      {/* Center Tab */}
+      <motion.button
+        onClick={() => setOpen((v) => !v)}
+        className="relative z-20 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-lg font-semibold backdrop-blur transition hover:bg-white/10"
+        whileTap={{ scale: 0.98 }}
+        aria-expanded={open}
+        aria-controls="skills-orbit"
+      >
+        {open ? "Hide skills" : "Skills"}
+      </motion.button>
+
+      {/* Orbiting skill chips */}
+      <div id="skills-orbit" className="pointer-events-none absolute inset-0 grid place-items-center">
+        {SKILLS.map((s, i) => (
+          <AnimatePresence key={s.key}>
+            {open && (
+              <motion.button
+                key={s.key}
+                initial={{ opacity: 0, x: 0, y: 0, scale: 0.6 }}
+                animate={{
+                  opacity: 1,
+                  x: positions[i].x,
+                  y: positions[i].y,
+                  scale: 1,
+                }}
+                exit={{ opacity: 0, x: 0, y: 0, scale: 0.6 }}
+                transition={{ type: "spring", stiffness: 320, damping: 24, delay: i * 0.06 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActive((prev) => (prev === s.key ? null : s.key));
+                }}
+                className="pointer-events-auto absolute z-10 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur hover:bg-white/20"
+                style={{ color: s.color === "#000000" ? "#fff" : s.color }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.98 }}
+                aria-haspopup="dialog"
+                aria-expanded={active === s.key}
+                aria-label={`Open ${s.label} projects`}
+              >
+                {s.label}
+              </motion.button>
+            )}
+          </AnimatePresence>
+        ))}
+      </div>
+
+      {/* Project panel */}
+      <AnimatePresence>
+        {activeSkill && (
+          <motion.div
+            key={activeSkill.key}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 24 }}
+            className="absolute bottom-6 left-1/2 z-30 w-[92%] max-w-2xl -translate-x-1/2 rounded-xl border border-white/15 bg-neutral-900/90 p-4 shadow-2xl backdrop-blur-xl"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="mb-2 flex items-center justify-between">
+              <h3 className="text-base font-semibold">
+                {activeSkill.label} · Projects
+              </h3>
+              <button
+                onClick={() => setActive(null)}
+                className="rounded-md border border-white/10 bg-white/5 px-3 py-1 text-xs hover:bg-white/10"
+                aria-label="Close projects"
+              >
+                Close
+              </button>
+            </div>
+
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {activeSkill.projects.map((p, idx) => (
+                <li key={idx} className="rounded-lg border border-white/10 bg-white/5 p-3">
+                  <div className="text-sm font-medium">{p.title}</div>
+                  {p.year && (
+                    <div className="text-xs text-white/60">{p.year}</div>
+                  )}
+                  {p.link && (
+                    <a
+                      href={p.link}
+                      className="mt-1 inline-block text-xs underline opacity-80 hover:opacity-100"
+                    >
+                      View
+                    </a>
+                  )}
+                </li>)
+              )}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* subtle gradient glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_40%,rgba(80,80,255,0.12),rgba(0,0,0,0))]" />
+    </div>
+  );
+}
+
+// --- How to use ---
+// 1) Install:  npm install framer-motion
+// 2) Ensure TailwindCSS is set up in your Next.js app (or replace classes with your CSS)
+// 3) Import in a page:  import SkillsOrbit from "@/components/SkillsOrbit";
+// 4) Use in JSX: <SkillsOrbit />
+// 5) Edit SKILLS array above to add your real skills and projects.
+
+
