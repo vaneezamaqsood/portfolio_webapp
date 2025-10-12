@@ -8,10 +8,9 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/work", label: "Work" },
-  { href: "/content", label: "Content" },
-  { href: "/about", label: "About" },
+  { href: "#hero", label: "Home" },
+  { href: "#skills", label: "Skills" },
+  { href: "#about", label: "About" },
 ];
 
 export default function Navbar() {

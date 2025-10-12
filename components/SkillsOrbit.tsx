@@ -1,7 +1,7 @@
 // app/components/SkillsOrbit.tsx
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // --- Types ---
@@ -71,13 +71,34 @@ function useOrbitPositions(count: number, radius = 180) {
 
 export default function SkillsOrbit() {
   const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState<string | null>(null);
   const positions = useOrbitPositions(SKILLS.length, 180);
 
   const activeSkill = SKILLS.find((s) => s.key === active) || null;
 
+  // Auto-open when this section enters viewport
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    let opened = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!opened && entry.isIntersecting && entry.intersectionRatio > 0.25) {
+            opened = true;
+            setOpen(true);
+          }
+        });
+      },
+      { threshold: [0, 0.25, 0.5] }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className="relative mx-auto grid place-items-center min-h-[600px] w-full overflow-hidden rounded-2xl bg-neutral-950 text-neutral-100">
+    <div ref={rootRef} className="relative mx-auto grid place-items-center min-h-[600px] w-full overflow-hidden rounded-2xl bg-neutral-950 text-neutral-100">
       {/* Center Tab */}
       <motion.button
         onClick={() => setOpen((v) => !v)}
