@@ -1,18 +1,14 @@
 import Hero from "@/components/Hero";
 import type { Metadata } from "next";
-import { SectionHeading, WorkGrid } from "@/components/Sections";
-import { CATEGORIES, itemsByCategory } from "@/data/work";
+import SkillsOrbit from "@/components/SkillsOrbit";
 
 export default function Home() {
   return (
     <div className="pb-20">
       <Hero />
-      <SectionHeading id="next-section" title="Selected Work" subtitle="A snapshot across design and code" />
-      <WorkGrid items={[
-        ...itemsByCategory(CATEGORIES.FIGMA).slice(0,2),
-        ...itemsByCategory(CATEGORIES.WEB).slice(0,2),
-        ...itemsByCategory(CATEGORIES.THINKING).slice(0,1),
-      ]} />
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 mt-12">
+        <SkillsOrbit />
+      </div>
     </div>
   );
 }

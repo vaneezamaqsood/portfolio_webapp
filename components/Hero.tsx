@@ -77,11 +77,35 @@ export default function Hero() {
     <section id="hero" className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-24">
       <AuroraBackground className="absolute inset-0 -z-10 opacity-90"></AuroraBackground>
 
-      <div className="flex items-center justify-center">
-        {/* Centered Skills Orbit */}
-        <div className="relative mx-auto w-full max-w-5xl">
-          <SkillsOrbit />
+      <div className="grid gap-10 sm:gap-6 sm:grid-cols-[1.2fr_0.8fr] items-center">
+        <div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-4xl sm:text-6xl font-semibold tracking-tight"
+          >
+            <span ref={headlineRef} />
+            <br />
+            <span className="text-primary/80">
+              <span ref={rolesRef} />
+              <span ref={rolesCaretRef} className="type-caret" aria-hidden>
+                |
+              </span>
+            </span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+            className="text-muted-foreground mt-4 max-w-prose"
+          >
+            Crafting human-centered products with motion-first interactions. I prototype in Figma, design systems, and code responsive web apps.
+          </motion.p>
         </div>
+
+        {/* Right side can remain for future visuals or be empty */}
+        <div className="relative mx-auto w-full" />
       </div>
     </section>
   );
