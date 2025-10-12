@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import ThemeToggle from "@/components/ThemeToggle";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
@@ -74,8 +73,7 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* theme toggle */}
-          <ThemeToggle />
+          {/* theme toggle removed */}
         </nav>
       </div>
 
@@ -140,10 +138,7 @@ export default function Navbar() {
                     );
                   })}
                 </ul>
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Theme</span>
-                  <ThemeToggle />
-                </div>
+                {/* theme toggle removed */}
               </motion.div>
             </motion.div>
           )}
