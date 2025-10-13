@@ -38,11 +38,11 @@ export default function PlasmaBackground({ className = "" }: { className?: strin
       uniform float u_speed;
       // Gold palette
       vec3 palette(float t){
-        vec3 a = vec3(0.18, 0.14, 0.02);
-        vec3 b = vec3(0.85, 0.73, 0.23);
-        vec3 c = vec3(0.98, 0.82, 0.35);
+        vec3 a = vec3(0.20, 0.16, 0.05);
+        vec3 b = vec3(1.05, 0.88, 0.35);
+        vec3 c = vec3(1.10, 0.92, 0.45);
         vec3 d = vec3(0.15, 0.25, 0.10);
-        return a + b * cos(6.28318 * (c * t + d));
+        return clamp(a + b * cos(6.28318 * (c * t + d)), 0.0, 1.0);
       }
       float noise(vec2 p){ return sin(p.x)*sin(p.y); }
       float fbm(vec2 p){
@@ -65,10 +65,13 @@ export default function PlasmaBackground({ className = "" }: { className?: strin
         q += vec2(n, -n);
         float n2 = fbm(q * 2.2 - t * 0.2);
         float v = 0.5 + 0.5 * sin(3.0 * n2 + t * 0.6);
-        vec3 col = mix(vec3(0.05,0.05,0.06), palette(v), 0.8);
-        // subtle vignette
+        vec3 gold = palette(v);
+        vec3 col = mix(vec3(0.08,0.07,0.05), gold, 0.95);
+        // gentle bloom
+        col += pow(gold, vec3(1.2)) * 0.15;
+        // very subtle vignette
         float r = length(uv);
-        col *= smoothstep(1.1, 0.2, r);
+        col *= smoothstep(1.6, 0.1, r);
         gl_FragColor = vec4(col, 1.0);
       }
     `;
@@ -140,7 +143,7 @@ export default function PlasmaBackground({ className = "" }: { className?: strin
     };
   }, []);
 
-  return <canvas ref={canvasRef} className={className} />;
+  return <canvas ref={canvasRef} className={className} style={{ mixBlendMode: "screen", filter: "saturate(1.2) brightness(1.1)" }} />;
 }
 
 

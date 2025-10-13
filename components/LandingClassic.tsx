@@ -73,7 +73,7 @@ export default function LandingClassic() {
 
   return (
     <div className="relative">
-      <PlasmaBackground className="pointer-events-none fixed inset-0 -z-10 opacity-80" />
+      <PlasmaBackground className="pointer-events-none fixed inset-0 -z-10 opacity-95" />
       <div dangerouslySetInnerHTML={{ __html: markup }} />
     </div>
   );
