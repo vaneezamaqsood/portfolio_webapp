@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import PlasmaBackground from "@/components/PlasmaBackground";
 import SkillsOrbit from "@/components/SkillsOrbit";
 
 export default function Hero() {
@@ -75,7 +76,8 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative mx-auto max-w-6xl px-4 sm:px-6 pt-16 sm:pt-24">
-      <AuroraBackground className="absolute inset-0 -z-10 opacity-90"></AuroraBackground>
+      <AuroraBackground className="absolute inset-0 -z-20 opacity-60"></AuroraBackground>
+      <PlasmaBackground className="absolute inset-0 -z-10 opacity-80" />
 
       <div className="flex items-center justify-center">
         <div className="max-w-3xl text-center">
