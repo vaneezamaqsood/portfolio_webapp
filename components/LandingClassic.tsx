@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import PlasmaBackground from "@/components/PlasmaBackground";
 
 export default function LandingClassic() {
   useEffect(() => {
@@ -71,7 +72,10 @@ export default function LandingClassic() {
   }, []);
 
   return (
-    <div dangerouslySetInnerHTML={{ __html: markup }} />
+    <div className="relative">
+      <PlasmaBackground className="pointer-events-none fixed inset-0 -z-10 opacity-80" />
+      <div dangerouslySetInnerHTML={{ __html: markup }} />
+    </div>
   );
 }
 
