@@ -9,16 +9,18 @@ export default function PlasmaBackground({ className = "" }: { className?: strin
   useEffect(() => {
     const cnv = canvasRef.current;
     if (!cnv) return;
-    const gl = cnv.getContext("webgl");
-    if (!gl) return;
+    const glCtx = cnv.getContext("webgl");
+    if (!glCtx) return;
+    const gl = glCtx as WebGLRenderingContext;
 
     const DPR = Math.min(2, window.devicePixelRatio || 1);
+    const canvas = cnv as HTMLCanvasElement;
     function resize() {
-      const w = cnv.clientWidth;
-      const h = cnv.clientHeight;
-      cnv.width = Math.max(1, Math.floor(w * DPR));
-      cnv.height = Math.max(1, Math.floor(h * DPR));
-      gl.viewport(0, 0, cnv.width, cnv.height);
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      canvas.width = Math.max(1, Math.floor(w * DPR));
+      canvas.height = Math.max(1, Math.floor(h * DPR));
+      gl.viewport(0, 0, canvas.width, canvas.height);
     }
     resize();
     const ro = new ResizeObserver(resize);
@@ -107,7 +109,7 @@ export default function PlasmaBackground({ className = "" }: { className?: strin
     let raf = 0;
     function render(now: number){
       const t = (now - start) * 0.001;
-      gl.uniform2f(uRes, cnv.width, cnv.height);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, t);
       gl.uniform1f(uSpeed, speedRef.current);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
