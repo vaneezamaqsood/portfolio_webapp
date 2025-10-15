@@ -184,7 +184,6 @@ return `
     <div class="floating-element float-3"></div>
     <h1 class="hero-title">Design<br/>Drives<br/><span class="rotating-text" id="rotatingText">Innovation</span></h1>
     <p class="hero-subtitle">Product Designer & Ecosystem Lead crafting human-centered digital experiences at the intersection of UX, AI, and startup innovation</p>
-    <a href="#" class="resume-btn" download="Vaneeza-Maqsood-CV.pdf">Download Resume</a>
     <div class="scroll-indicator"></div>
   </section>
   <section class="section" id="about">
