@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { workItems } from "@/data/work";
+import { workItems, CATEGORIES } from "@/data/work";
 import PlasmaBackground from "@/components/PlasmaBackground";
 
 export default function LandingClassic() {
@@ -72,15 +72,22 @@ export default function LandingClassic() {
     };
   }, []);
 
+  const ux = workItems.find(w => w.category === CATEGORIES.FIGMA && w.href)?.href || "#projects";
+  const web = workItems.find(w => w.category === CATEGORIES.WEB && w.href)?.href || "#projects";
+  const community = "#experience";
+  const ai = "#projects";
+  const photo = "/content";
+
   return (
     <div className="relative">
       <PlasmaBackground className="pointer-events-none fixed inset-0 -z-10 opacity-95" />
-      <div dangerouslySetInnerHTML={{ __html: markup }} />
+      <div dangerouslySetInnerHTML={{ __html: buildMarkup(ux, web, community, ai, photo) }} />
     </div>
   );
 }
 
-const markup = `
+function buildMarkup(uxLink: string, webLink: string, communityLink: string, aiLink: string, photoLink: string) {
+return `
   <style>
     :root{--gold:#d4af37;--gold2:#f4d03f;--ease: cubic-bezier(.23,1,.32,1)}
     *{margin:0;padding:0;box-sizing:border-box}
@@ -116,7 +123,7 @@ const markup = `
     .about-text{font-size:1.3rem;line-height:1.7;font-weight:300;opacity:.9}
     .about-text strong{color:#d4af37;font-weight:600}
     .skills{display:flex;flex-direction:column;gap:2rem}
-    .skill-item{font-size:1.8rem;font-weight:600;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.1);transition:color .4s var(--ease), padding .5s var(--ease), border-color .4s var(--ease);cursor:pointer;position:relative;overflow:hidden}
+    .skill-item{font-size:1.8rem;font-weight:600;padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.1);transition:color .4s var(--ease), padding .5s var(--ease), border-color .4s var(--ease);cursor:pointer;position:relative;overflow:hidden;display:block;color:#fff;text-decoration:none}
     .skill-item::before{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .6s var(--ease)}
     .skill-item:hover::before{width:100%}
     .skill-item:hover{padding-left:2rem;color:var(--gold);border-color:var(--gold)}
@@ -187,11 +194,11 @@ const markup = `
         <p class="about-text">I'm a creative and impact-driven product designer and ecosystem leader based in <strong>Helsinki, Finland</strong>... </p>
       </div>
       <div class="skills">
-        <div class="skill-item">UX/UI Design</div>
-        <div class="skill-item">Front-End Development</div>
-        <div class="skill-item">Community Leadership</div>
-        <div class="skill-item">AI Integration</div>
-        <div class="skill-item">Photography & Content</div>
+        <a class="skill-item" href="${uxLink}" target="_blank" rel="noreferrer">UX/UI Design</a>
+        <a class="skill-item" href="${webLink}" target="_blank" rel="noreferrer">Front-End Development</a>
+        <a class="skill-item" href="${communityLink}">Community Leadership</a>
+        <a class="skill-item" href="${aiLink}">AI Integration</a>
+        <a class="skill-item" href="${photoLink}">Photography & Content</a>
       </div>
     </div>
   </section>
@@ -236,5 +243,6 @@ const markup = `
   </section>
   <footer><p>© 2025 Vaneeza Maqsood. Based in Helsinki, Finland.</p></footer>
 `;
+}
 
 
