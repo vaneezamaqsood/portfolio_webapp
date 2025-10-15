@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { workItems } from "@/data/work";
 import PlasmaBackground from "@/components/PlasmaBackground";
 
 export default function LandingClassic() {
@@ -89,6 +90,13 @@ const markup = `
     .nav-links{display:flex;gap:3rem;list-style:none}
     .nav-links a{color:#fff;text-decoration:none;font-size:.95rem;transition:opacity .3s}
     .nav-links a:hover{opacity:.6}
+    /* Works dropdown */
+    .nav-links li.nav-dropdown{position:relative}
+    .nav-links li.nav-dropdown > a{display:flex;align-items:center;gap:.4rem}
+    .nav-links li.nav-dropdown .dropdown{display:none;position:absolute;top:2.6rem;right:0;background:rgba(15,15,15,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.6rem;min-width:240px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+    .nav-links li.nav-dropdown:hover .dropdown{display:block}
+    .nav-links li.nav-dropdown .dropdown a{display:block;padding:.5rem .7rem;border-radius:8px;color:#fff;opacity:.85;transition:background .25s var(--ease), opacity .25s var(--ease)}
+    .nav-links li.nav-dropdown .dropdown a:hover{background:rgba(255,255,255,.06);opacity:1}
     .hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;padding:0 2rem}
     .hero-title{font-size:clamp(3rem,12vw,10rem);font-weight:900;letter-spacing:-.04em;line-height:.9;text-align:center;margin-bottom:2rem}
     .rotating-text{display:inline-block;background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:slideUp 8s infinite}
@@ -150,7 +158,16 @@ const markup = `
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
+      <li class="nav-dropdown">
+        <a href="#projects">Works ▾</a>
+        <div class="dropdown">
+          ${workItems
+            .filter(w => !!w.href)
+            .slice(0, 10)
+            .map(w => `<a href="${w.href}" target="_blank" rel="noreferrer">${w.title}</a>`)
+            .join("")}
+        </div>
+      </li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
